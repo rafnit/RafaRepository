@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	  
+	<div class="alert alert-success" role="alert" th:if="${!#strings.isEmpty(mensagem)}">
+		<span th:text="${mensagem}"></span>
+	</div>
+	
+	<div class="alert alert-danger" role="alert" th:if="${!#strings.isEmpty(erro)}">
+		<span th:text="${erro}"></span>
+	</div>
+</html>

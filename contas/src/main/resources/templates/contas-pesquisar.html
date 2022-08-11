@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{template.html}">
+
+<section layout:fragment="conteudo">
+	<section layout:insert="message-default"></section>
+	
+	<div class="card border-dark mb-3">
+		<div class="card-header clearfix">
+			<h5 class="cc-titulo-card">Pesquisa de Contas</h5>
+			<a class="navbar-brand cc-link-card" href="/contas/cadastro">
+		  		<i class="bi bi-file-earmark-plus"></i> Cadastrar
+		  	</a>
+		</div>
+		
+		<div class="card-body">
+			<table id="table" class="table table-sm table-hover"
+				data-show-footer="true"
+  				data-show-fullscreen="true"
+  				data-show-columns="true"
+  				
+  				data-search-align="left"
+  				data-search-highlight="true"
+  				
+  				data-buttons-align="right"
+  				data-buttons-class="primary"
+  				data-buttons-prefix="btn-sm btn"
+  				
+  				data-detail-view="true"
+  				data-detail-view-icon="true"
+  				data-detail-view-by-click="true"
+  				data-detail-formatter="detailFormatter"
+  				
+  				data-search="true"
+  				data-sort-priority='[{"sortName": "colTipo","sortOrder":"desc"},{"sortName":"colDescricao","sortOrder":"asc"}]'>
+			<thead>
+				<tr class="table-dark">
+			    	<th scope="col" class="col-md-1" data-field="colCodigo">#</th>
+			      	<th scope="col" class="text-center col-md-3" data-field="colDescricao" data-sortable="true">Descrição</th>
+			      	<th scope="col" class="text-center col-md-2" data-field="colValor">Valor</th>
+			      	<th scope="col" class="text-center col-md-2" data-field="colTipo" data-sortable="true">Tipo</th>
+			      	<th scope="col" class="text-center col-md-2" data-field="colDataDebito">Data Débito</th>
+			      	<th scope="col" class="text-center col-md-1" data-field="colExecutado">Executado</th>
+			      	<th scope="col" class="text-center col-md-2" data-disable-sorting="false">Ação</th>
+			    </tr>
+			</thead>
+			<tbody>
+				<tr th:each="conta : ${listaConta}">
+					<td class="text-center" th:text="${conta.codigo}"></td>
+					<td class="text-left" th:text="${conta.descricao}"></td>
+					<td class="text-center" th:text="${{conta.valor}}" th:classappend="${conta.receita} ? 'cc-blue-light' : 'cc-red-light'"></td>
+					<td class="text-center" th:text="${conta.tipo.descricao}"></td>
+					<td class="text-left" th:text="${conta.dataDebito}"></td>
+					<td class="text-center">
+						<i class="bi" th:classappend="${conta.executado} ? 'bi-check-lg'"
+							th:attr="data-role=${conta.codigo}"></i>
+					</td>
+					<td class="text-center">
+						<a class="btn btn-link btn-xs" th:href="@{/contas/{codigo}(codigo=${conta.codigo})}">
+							<i class="bi bi-filter-circle"></i>
+						</a>
+						<a class="btn btn-link btn-xs" data-bs-toggle="modal" data-bs-target="#mConfirmaExclusaoConta"
+								th:attr="data-codigo=${conta.codigo}, data-descricao=${conta.descricao}">
+							<i class="bi bi-x-circle"></i>
+						</a>
+						<a class="btn btn-link btn-xs" th:if="${!conta.executado}"
+								th:href="@{/contas/executar/{codigo}(codigo=${conta.codigo})}">
+							<i class="bi bi-check-circle"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot class="table-dark">
+				<tr>
+			    	<td></td>
+			    	<td></td>
+			    	<td class="text-center">
+			    		<span th:text="${saldo}"></span>
+			    	</td>
+			    	<td></td>
+			    	<td></td>
+			    	<td class="text-center">
+			    		<span th:text="${saldoExecutado}"></span>
+			    	</td>
+			    	<td></td>
+			    </tr>
+			</tfoot>
+			</table>
+		</div>
+	</div>
+	
+	<div layout:insert="modal-confirma-exclusao-conta"></div>
+</section>
+</html>

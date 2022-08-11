@@ -1,0 +1,37 @@
+.card {
+	margin-top:15px;
+	margin-left:15px;
+	margin-right:15px;
+}
+
+.alert {
+	margin-top:10px;
+	margin-left:15px;
+	margin-right:15px;
+}
+
+.multi-sort {
+	display:none;
+}
+
+.cc-titulo-card {
+	float: left;
+	padding: 0px;
+}
+
+.cc-link-card {
+	float: right;
+	padding: 0px;
+}
+
+.cc-red-light {
+	background-color: LightCoral !important;
+}
+
+.cc-blue-light {
+	background-color: SkyBlue !important;
+}
+
+.cc-botoes-footer {
+	padding-top: 10px;
+}
